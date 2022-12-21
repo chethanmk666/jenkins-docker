@@ -25,26 +25,26 @@ pipeline{
        stage('build image')
         {
             steps{
-                sh 'docker build -t capstone-img:1.01 .'
+                sh 'docker build -t dockerjenkins:1.01 .'
             }
         } 
         stage('pushing to dockerhub')
         {
             steps{
-                sh 'docker tag capstone-img:1.01 naincykumari123/capstone:1.01 '
+                sh 'docker tag dockerjenkins:1.01 chethanmk666/dockerjenkins:1.01 '
                 sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
 
-                sh 'docker push naincykumari123/capstone:1.01 '
+                sh 'docker push chethanmk666/dockerjenkins:1.01 '
             }
         }
        
-         stage('Deploy App') {
-      steps {
+         //stage('Deploy App') {
+      //steps {
            
-        kubernetesDeploy configs: '**/appDeployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'kube', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+        //kubernetesDeploy configs: '**/appDeployment.yaml', kubeConfig: [path: ''], kubeconfigId: 'kube', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
 
-             }
-        }
+          //   }
+        //}
         
     }
 }
